@@ -1,0 +1,36 @@
+%----------------------------------------------------%
+%     Briefvorlage - Author: Sebastian Arns          %
+%----------------------------------------------------%
+\documentclass[DIN, pagenumber=false, parskip=half,fromalign=left, fromphone=true,fromemail=true,fromurl=false,fromrule=false,backaddress=off,11pt]{scrlttr2}
+
+\usepackage[ngerman]{babel}
+\usepackage{fontspec}
+
+\setmainfont[Numbers=Lining]{Vollkorn}
+
+\usepackage{hyperref}
+
+\RequirePackage{graphicx}
+
+	% __Adresse__
+	\setkomavar{fromname}		{}
+	\setkomavar{fromaddress}	{}
+	\setkomavar{fromphone}		{}
+	\setkomavar{fromemail}		{}
+	%\setkomavar{signature}		{\includegraphics{unterschrift.jpeg}}
+	\setkomavar{subject}		{Betreff: }
+	%\setkomavar{fromlogo}{\includegraphics*[width=2cm]{logo}}
+
+\begin{document}
+
+\begin{letter}{	\textbf{<<Namenszeile>>}\\
+						<<Strasse>>\\
+						<<Land>>-<<PLZ>> <<Stadt>>}
+
+\enlargethispage{5cm}
+\opening{<<AnredeFormel>> <<Ansprechpartner>>,}
+
+\closing{Mit freundlichen Grüßen}
+
+\end{letter}
+\end{document}
