@@ -47,7 +47,7 @@ for file in files:
                             MyFile3.write(letter)
                         print(str(i) + ' ' + customer[5])
                         cmd = ['/usr/local/texlive/2015/bin/x86_64-darwin/xelatex','Brief_' + str(i) + '.tex']
-                        process = subprocess.call(cmd)
+                        process = subprocess.run(cmd)
 
                         os.remove('Brief_' + str(i) + '.tex')
                         os.remove('Brief_' + str(i) + '.out')
@@ -55,13 +55,10 @@ for file in files:
                         os.remove('Brief_' + str(i) + '.aux')
                         i += 1
 
-        cmd = ['/usr/local/bin/gs','-q','-dNOPAUSE','-dBATCH','-sDEVICE=pdfwrite','-sOutputFile=MergedPDF.pdf','*.pdf']
-        process = subprocess.call(cmd)
-
-        for element in range(1,i-1):
-            os.remove('Brief_' + str(element) + '.pdf')
-  
-                                                
-                    
-                
-        
+        cmd = ['/usr/local/bin/gs','-q','-dNOPAUSE','-dBATCH','-sDEVICE=pdfwrite','-sOutputFile=MergedPDF.pdf']
+        filelist = []
+        for element in range(1,i):
+            filelist.append('Brief_' + str(element) + '.pdf')
+        process = subprocess.run(cmd + filelist)
+        for element in filelist:
+            os.remove(element)
