@@ -2,9 +2,12 @@ import codecs
 import os
 import re
 import subprocess
+from PyPDF2 import PdfFileMerger
 
 firstline = 'True'
 files = os.listdir()
+
+i = 1
 
 for file in files:
     if file.endswith('.DOC'):
@@ -40,17 +43,24 @@ for file in files:
                         pattern = re.compile('<<Ansprechpartner>>')
                         letter = pattern.sub(customer[16],letter)
 
-                        with codecs.open(customer[5] + '.tex','w','utf-8') as MyFile3:
+                        with codecs.open('Brief_' + str(i) + '.tex','w','utf-8') as MyFile3:
                             MyFile3.write(letter)
-                        cmd = ['/usr/local/texlive/2015/bin/x86_64-darwin/xelatex',customer[5] + '.tex']
+                        print(str(i) + ' ' + customer[5])
+                        cmd = ['/usr/local/texlive/2015/bin/x86_64-darwin/xelatex','Brief_' + str(i) + '.tex']
                         process = subprocess.call(cmd)
 
-                        os.remove(customer[5] + '.tex')
-                        os.remove(customer[5] + '.out')
-                        os.remove(customer[5] + '.log')
-                        os.remove(customer[5] + '.aux')
-                        
-      
+                        os.remove('Brief_' + str(i) + '.tex')
+                        os.remove('Brief_' + str(i) + '.out')
+                        os.remove('Brief_' + str(i) + '.log')
+                        os.remove('Brief_' + str(i) + '.aux')
+                        i += 1
+
+        cmd = ['/usr/local/bin/gs','-q','-dNOPAUSE','-dBATCH','-sDEVICE=pdfwrite','-sOutputFile=MergedPDF.pdf','*.pdf']
+        process = subprocess.call(cmd)
+
+        for element in range(1,i-1):
+            os.remove('Brief_' + str(element) + '.pdf')
+  
                                                 
                     
                 
