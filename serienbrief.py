@@ -2,7 +2,6 @@ import codecs
 import os
 import re
 import subprocess
-from PyPDF2 import PdfFileMerger
 
 firstline = 'True'
 files = os.listdir()
